@@ -18,5 +18,6 @@ def guess(x):
             attempts += 1
         else:
             print("That's it! The number was", randomNumber, "and it only took you", attempts, "attempts.")
-# Runs the function    
-guess(100)
+
+# Runs the function
+guess(10)
