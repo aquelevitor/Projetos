@@ -14,8 +14,8 @@ winner = None
 draw = None
 
 # Game window configuration
-width = 800
-height = 600
+width = 400
+height = 400
 
 # Background color and line color
 white = (255,255,255)
@@ -64,12 +64,12 @@ def game_window():
 	screen.fill(white)
 
 	# Drawing horizontal lines
-	pg.draw.lines(screen, line_color, (0, height / 3), (width, height / 3),7)
-	pg.draw.lines(screen, line_color, (0, height / 3 * 2), (width, height / 3 * 2),7)
+	pg.draw.line(screen, line_color, (0, height / 3), (width, height / 3),7)
+	pg.draw.line(screen, line_color, (0, height / 3 * 2), (width, height / 3 * 2),7)
 
 	# Drawing vertical lines
-	pg.draw.lines(screen, line_color, (width / 3, 0), (width / 3, height), 7)
-	pg.draw.lines(screen, line_color, (width / 3 * 2, 0), (width / 3 * 2, height), 7)
+	pg.draw.line(screen, line_color, (width / 3, 0), (width / 3, height), 7)
+	pg.draw.line(screen, line_color, (width / 3 * 2, 0), (width / 3 * 2, height), 7)
 	draw_status()
 
 
@@ -103,7 +103,7 @@ def check_win():
 
 	# Checking for winner on rows
 	for row in range(0,3):
-		if((board[row][0] == board[row][1] == board[row][2]) and (board[row][0] is not None)):
+		if ((board[row][0] == board[row][1] == board[row][2]) and (board[row][0] is not None)):
 			winner = board[row][0]
 			pg.draw.line(screen, (250,0,0),
 						(0, (row + 1) * height / 3 - height / 6),
@@ -113,7 +113,7 @@ def check_win():
 
 	# Checking for winner on columns
 	for col in range(0,3):
-		if((board[0][col] == board[1][col] == board[2][col]) and (board[0][col] is not None)):
+		if ((board[0][col] == board[1][col] == board[2][col]) and (board[0][col] is not None)):
 			winner = board[0][col]
 			pg.draw.line(screen, (250,0,0),
 								 ((col + 1) * width / 3 - width / 6, 0),
@@ -219,6 +219,37 @@ def user_click():
 
 		drawXO(row,col)
 		check_win()
+
+# Creates a function to reset all parameters and restart the game
+def reset_game():
+	global board, winner, XO, draw
+	time.sleep(2)
+	XO = 'x'
+	draw = False
+	game_window()
+	winner = None
+	board = [[None] * 3, [None] * 3, [None] * 3]
+
+game_window()
+
+# Game loop
+while True:
+	for event in pg.event.get():
+		if event.type == QUIT:
+			pg.quit()
+			sys.exit()
+		elif event.type == MOUSEBUTTONDOWN:
+			user_click()
+
+			if winner or draw:
+				reset_game()
+	
+	pg.display.update()
+	CLOCK.tick(fps)
+
+		
+
+
 
 
 
