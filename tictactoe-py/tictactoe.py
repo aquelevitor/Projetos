@@ -246,17 +246,3 @@ while True:
 	
 	pg.display.update()
 	CLOCK.tick(fps)
-
-		
-
-
-
-
-
-
-
-
-
-
-
->>>>>>> creation
