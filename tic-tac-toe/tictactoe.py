@@ -43,9 +43,9 @@ screen = pg.display.set_mode((width, height + 100),0,32)
 pg.display.set_caption("Tic tac toe!")
 
 # Loads images as python objects
-initiating_window = pg.image.load("exercicios-aleatorios/projetos-pessoais/tic-tac-toe/Cover.png")
-x_image = pg.image.load("exercicios-aleatorios/projetos-pessoais/tic-tac-toe/X.png")
-y_image = pg.image.load("exercicios-aleatorios/projetos-pessoais/tic-tac-toe/O.png")
+initiating_window = pg.image.load('exercicios-aleatorios/projetos-pessoais/tic-tac-toe/Cover.png')
+x_image = pg.image.load('exercicios-aleatorios/projetos-pessoais/tic-tac-toe/X.png')
+y_image = pg.image.load('exercicios-aleatorios/projetos-pessoais/tic-tac-toe/O.png')
 
 # Resizes the images
 initiating_window = pg.transform.scale(initiating_window, (width, height + 100))
