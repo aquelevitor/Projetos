@@ -27,7 +27,7 @@ line_color = black
 # Board configuration
 board = [[None] * 3, [None] * 3, [None] * 3 ]
 
-# Initialize the game
+# Initialize the pygame window
 pg.init()
 
 # FPS cap
@@ -45,12 +45,12 @@ pg.display.set_caption("Tic tac toe!")
 # Loads images as python objects
 initiating_window = pg.image.load("Cover.png")
 x_image = pg.image.load("X.png")
-o_image = pg.image.load("O.png")
+y_image = pg.image.load("O.png")
 
 # Resizes the images
 initiating_window = pg.transform.scale(initiating_window, (width, height + 100))
 x_image = pg.transform.scale(x_image, (80,80))
-o_image = pg.transform.scale(o_image, (80,80))
+o_image = pg.transform.scale(y_image, (80,80))
 
 # Setting up the game window
 def game_window():
@@ -107,18 +107,19 @@ def check_win():
 			winner = board[row][0]
 			pg.draw.line(screen, (250,0,0),
 						(0, (row + 1) * height / 3 - height / 6),
-						(width, (row + 1) * height / 3 - height / 6), 4)
-
-		break
+						(width, (row + 1) * height / 3 - height / 6),
+						4)
+			break
 
 	# Checking for winner on columns
 	for col in range(0,3):
 		if ((board[0][col] == board[1][col] == board[2][col]) and (board[0][col] is not None)):
 			winner = board[0][col]
 			pg.draw.line(screen, (250,0,0),
-								 ((col + 1) * width / 3 - width / 6, 0),
-								 ((col + 1) * width / 3 - width / 6, height), 4)
-		break
+						((col + 1) * width / 3 - width / 6, 0),
+						((col + 1) * width / 3 - width / 6, height),
+						4)
+			break
 
 	# Checking for diagonal winners
 	if (board[0][0] == board[1][1] == board[2][2]) and (board[0][0] is not None):
@@ -240,9 +241,7 @@ while True:
 			sys.exit()
 		elif event.type == MOUSEBUTTONDOWN:
 			user_click()
-
 			if winner or draw:
 				reset_game()
-	
 	pg.display.update()
 	CLOCK.tick(fps)
