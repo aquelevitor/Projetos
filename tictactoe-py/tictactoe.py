@@ -25,7 +25,7 @@ black = (0,0,0)
 line_color = black
 
 # Board configuration
-board = [[None] * 3, [None], * 3, [None] * 3 ]
+board = [[None] * 3, [None] * 3, [None] * 3 ]
 
 # Initialize the game
 pg.init()
@@ -45,12 +45,12 @@ pg.display.set_caption("Tic tac toe!")
 # Loads images as python objects
 initiating_window = pg.image.load("Cover.png")
 x_image = pg.image.load("X.png")
-y_image = pg.image.load("Y.png")
+o_image = pg.image.load("O.png")
 
 # Resizes the images
 initiating_window = pg.transform.scale(initiating_window, (width, height + 100))
 x_image = pg.transform.scale(x_image, (80,80))
-y_image = pg.transform.scale(y_image, (80,80))
+o_image = pg.transform.scale(o_image, (80,80))
 
 # Setting up the game window
 def game_window():
@@ -136,7 +136,89 @@ def check_win():
 	if (all([all(row) for row in board]) and winner is None):
 		draw = True
 
-	draw_status()	
+	draw_status()
+
+# Draws X or O
+def drawXO(row, col):
+	global board, XO
+
+	# For the first row, the image should be pasted at a x coordinate
+	# of 30 from the left margin
+	if row == 1:
+		posx = 30
+
+	# For the second row, the image should be pasted at a x coordinate
+	# of 30 from the game line
+	if row == 2:
+
+		# Margin or width / 3 + 30 from
+		# the left margin of the window
+		posx = width / 3 + 30
+
+	if row == 3:
+		posx = width / 3 * 2 + 30
+
+	if col == 1:
+		posy = 30
+
+	if col == 2:
+		posy = height / 3 + 30
+
+	if col == 3:
+		posy = height / 3 * 2 + 30
+
+	# Setting up the required board values to display
+	board[row - 1][col - 1] = XO
+
+	if(XO == 'x'):
+
+		# Pasting x_image over the screen at a coordinate position of
+		# (posy, posx) defined in the code above
+		screen.blit(x_image, (posy, posx))
+		XO = 'o'
+
+	else:
+		screen.blit(o_image, (posy, posx))
+		XO = 'x'
+	pg.display.update()
+
+def user_click():
+	# Mouse coordinates
+	x, y = pg.mouse.get_pos()
+
+	# Get column of mouse click (1 - 3)
+	if (x < width / 3):
+		col = 1
+
+	elif (x < width / 3 * 2):
+		col = 2
+
+	elif (x < width):
+		col = 3
+
+	else:
+		col = None
+
+	# Get row of the mouse click (1 - 3)
+	if (y < height / 3):
+		row = 1
+
+	elif (y < height / 3 * 2):
+		row = 2
+
+	elif (y < height):
+		row = 3
+
+	else:
+		row = None
+
+	# After getting the right coordinates
+	# we need to draw the images at the right position
+	if(row and col and board[row-1][col-1] is None):
+		global XO
+
+		drawXO(row,col)
+		check_win()
 
 
 
