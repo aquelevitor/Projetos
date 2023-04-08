@@ -26,7 +26,6 @@ def hangman():
         word_list = [letter if letter in used_letters else '-' for letter in word]
         print("Current word: ", " ".join(word_list))
     
-
         user_letter = input("Guess a letter: ").upper()
         if user_letter in alphabet - used_letters:
             used_letters.add(user_letter)
@@ -45,7 +44,7 @@ def hangman():
 
     # ends here when word_letter == 0  or when lives == 0
     if lives == 0:
-        print("You died. The word was", word,".", "better luck next time!")
+        print("You died. The word was", word, "better luck next time!")
     else:
         print("You guesses the word", word, "!!!")
 
