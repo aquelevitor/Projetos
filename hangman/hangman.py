@@ -14,7 +14,7 @@ def hangman():
     alphabet = set(string.ascii_uppercase) # list of uppercase characters in english dictionary
     used_letters = set() # user guess
 
-    lives = 6
+    lives = 5
 
     # getting user input
     while len(word_letters) > 0 and lives > 0:
